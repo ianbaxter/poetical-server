@@ -30,6 +30,9 @@ app.use(compression());
 app.use(helmet());
 
 // Use routes
+app.get("/", function(req, res) {
+  res.send(JSON.stringify({ Hello: "World" }));
+});
 app.use("/api/blogHome", blogHomeRouter);
 app.use("/api/auth", authRouter);
 app.get("/api/secret", checkAuth, (req, res) =>
