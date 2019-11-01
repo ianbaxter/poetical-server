@@ -5,7 +5,7 @@
     "node": "10.15.0"
   },
   "description": "",
-  "main": "",
+  "main": "app.js",
   "scripts": {
     "start": "nodemon app.js"
   },
