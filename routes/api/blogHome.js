@@ -9,11 +9,10 @@ const BlogPost = require("../../model/BlogPost");
 // @description Get all blog posts
 // @access Public
 router.get("/", (req, res) => {
+  console.log("Get all blogposts");
   BlogPost.find()
     .then(blogPosts => res.json(blogPosts))
-    .catch(err =>
-      res.status(404).json({ nopostsfound: "No Posts Were Found" })
-    );
+    .catch(err => res.status(404).json({ error: "No Posts Were Found" }));
 });
 
 // @route GET api/blogHome
@@ -23,9 +22,7 @@ router.get("/:id", (req, res) => {
   console.log("Getting single post");
   BlogPost.findById(req.params.id)
     .then(blogPost => res.json(blogPost))
-    .catch(err =>
-      res.status(404).json({ nopostfound: "No Blog Post Was Found" })
-    );
+    .catch(err => res.status(404).json({ error: "No Blog Post Was Found" }));
 });
 
 // @route POST api/blogHome
@@ -35,7 +32,7 @@ router.post("/", upload.none(), (req, res) => {
   console.log("Adding new blog post");
   BlogPost.create(req.body)
     .then(res.redirect("http://localhost:3000/"))
-    // .then(blogPost => res.json({ msg: "Blog post added successfully" }))
+    // .then(() => res.json({ msg: "Blog post added successfully" }))
     .catch(err => res.status(400).send("Unable to save data"));
 });
 
