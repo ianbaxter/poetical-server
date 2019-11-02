@@ -13,6 +13,8 @@ dotenv.config();
 const blogHomeRouter = require("./routes/api/blogHome");
 const authRouter = require("./routes/api/auth");
 
+console.log(process.env.DB_CONNECT);
+
 // Connect to MongoDB
 mongoose.connect(
   process.env.DB_CONNECT,
