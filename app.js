@@ -21,7 +21,11 @@ mongoose.connect(
 );
 
 // Cors
-app.use(cors());
+// app.use(cors());
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  next();
+});
 
 // Middlewares
 app.use(express.json());
