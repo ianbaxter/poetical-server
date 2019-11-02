@@ -31,7 +31,7 @@ router.get("/:id", (req, res) => {
 router.post("/", upload.none(), (req, res) => {
   console.log("Adding new blog post");
   BlogPost.create(req.body)
-    .then(res.redirect("http://localhost:3000/"))
+    .then(res.redirect("https://ianbaxter.github.io/blog-app/"))
     // .then(() => res.json({ msg: "Blog post added successfully" }))
     .catch(err => res.status(400).send("Unable to save data"));
 });
