@@ -22,7 +22,10 @@ router.get("/:id", (req, res) => {
   console.log("Getting single post");
   BlogPost.findById(req.params.id)
     .then(blogPost => res.json(blogPost))
-    .catch(err => res.status(404).json({ error: "No Blog Post Was Found" }));
+    .catch(err => {
+      console.log("The error is: " + err);
+      res.status(404).json({ error: "No Blog Post Was Found" });
+    });
 });
 
 // @route POST api/blogHome
