@@ -21,7 +21,7 @@ mongoose.connect(
 );
 
 // Cors
-app.use(cors({ origin: true }));
+app.use(cors());
 
 // Middlewares
 app.use(express.json());
