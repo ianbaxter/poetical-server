@@ -13,8 +13,6 @@ dotenv.config();
 const blogHomeRouter = require("./routes/api/blogHome");
 const authRouter = require("./routes/api/auth");
 
-console.log(process.env.DB_CONNECT);
-
 // Connect to MongoDB
 mongoose.connect(
   process.env.DB_CONNECT,
@@ -23,16 +21,7 @@ mongoose.connect(
 );
 
 // Cors
-// app.use(cors());
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "DELETE, PUT, GET, POST");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
+app.use(cors({ origin: true, credentials: true }));
 
 // Middlewares
 app.use(express.json());
