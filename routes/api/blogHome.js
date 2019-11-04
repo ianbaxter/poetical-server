@@ -23,10 +23,10 @@ router.get("/:id", (req, res) => {
     .catch(err => res.status(404).json({ error: "No Blog Post Was Found" }));
 });
 
-// @route POST api/blogHome
+// @route PUT api/blogHome
 // @description Add new blog post
 // @access Public
-router.post("/", (req, res) => {
+router.put("/", (req, res) => {
   console.log("Adding new blog post");
   BlogPost.create(req.body)
     .then(blogPost => res.json({ msg: "Blog post added successfully" }))
@@ -43,7 +43,7 @@ router.delete("/:id", (req, res) => {
     .catch(err => res.status(404).json({ error: "No such blog post exists" }));
 });
 
-// @route GET api/blogHome/:id
+// @route PUT api/blogHome/:id
 // @description Update blog post
 // @access Public
 router.put("/:id", (req, res) => {
