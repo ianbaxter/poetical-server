@@ -1,6 +1,4 @@
 const router = require("express").Router();
-const multer = require("multer");
-const upload = multer();
 
 // Load blog post model
 const BlogPost = require("../../model/BlogPost");
@@ -28,11 +26,10 @@ router.get("/:id", (req, res) => {
 // @route POST api/blogHome
 // @description Add new blog post
 // @access Public
-router.post("/", upload.none(), (req, res) => {
+router.post("/", (req, res) => {
   console.log("Adding new blog post");
   BlogPost.create(req.body)
-    .then(res.redirect("https://baxter-blogs.herokuapp.com/"))
-    // .then(() => res.json({ msg: "Blog post added successfully" }))
+    .then(() => res.json({ msg: "Blog post added successfully" }))
     .catch(err => res.status(400).send("Unable to save data"));
 });
 
