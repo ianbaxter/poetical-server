@@ -29,7 +29,7 @@ router.get("/:id", (req, res) => {
 router.post("/", (req, res) => {
   console.log("Adding new blog post");
   BlogPost.create(req.body)
-    .then(() => res.json({ msg: "Blog post added successfully" }))
+    .then(blogPost => res.json({ msg: "Blog post added successfully" }))
     .catch(err => res.status(400).send("Unable to save data"));
 });
 
