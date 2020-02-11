@@ -17,7 +17,7 @@ const checkAuth = (req, res, next) => {
         res.status(401).send("Unauthorized: Invalid token");
         console.log("Invalid token");
       } else {
-        console.log("Log in successful");
+        console.log("Valid token, access granted");
         req._id = decoded._id;
         next();
       }

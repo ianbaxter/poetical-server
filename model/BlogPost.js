@@ -16,6 +16,10 @@ const blogPostSchema = new mongoose.Schema({
   dateEdited: {
     type: Date,
     default: Date.now
+  },
+  username: {
+    type: String,
+    required: true
   }
 });
 
