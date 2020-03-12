@@ -1,4 +1,4 @@
-# Blog
+# Chat Wall
 
 The back-end (server) for a simple online forum application.
 
