@@ -1,6 +1,6 @@
 # Blog
 
-The back-end (server) for a simple blogging web application.
+The back-end (server) for a simple online forum application.
 
 [Front-end (server) source code](https://github.com/ianbaxter/blog-app).
 
