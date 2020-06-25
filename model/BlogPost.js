@@ -3,24 +3,30 @@ const mongoose = require("mongoose");
 const blogPostSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true
+    required: true,
   },
   body: {
     type: String,
-    required: true
+    required: true,
   },
   date: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
   dateEdited: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
   username: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
+  meta: {
+    favs: {
+      type: Number,
+      default: 0,
+    },
+  },
 });
 
 module.exports = mongoose.model("Blog Post", blogPostSchema);
