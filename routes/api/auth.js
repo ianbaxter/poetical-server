@@ -26,7 +26,7 @@ router.post("/register", async (req, res) => {
   const user = new User({
     username: req.body.username,
     email: req.body.email,
-    password: hashedPassword
+    password: hashedPassword,
   });
   try {
     const savedUser = await user.save();
@@ -55,9 +55,12 @@ router.post("/login", async (req, res) => {
   // Issue token
   const payload = { email };
   const token = jwt.sign(payload, process.env.TOKEN_SECRET, {
-    expiresIn: "1h"
+    expiresIn: "1h",
   });
-  res.cookie("token", token, { httpOnly: true }).sendStatus(200);
+  res
+    .cookie("token", token, { httpOnly: true })
+    .status(200)
+    .send({ username: user.username, userId: user._id });
 });
 
 module.exports = router;

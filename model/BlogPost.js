@@ -26,6 +26,7 @@ const blogPostSchema = new mongoose.Schema({
       type: Number,
       default: 0,
     },
+    favsUserIds: [{ type: String }],
   },
 });
 
