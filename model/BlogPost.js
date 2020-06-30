@@ -38,6 +38,11 @@ const blogPostSchema = new mongoose.Schema({
     },
     favsUserIds: [{ type: String }],
   },
+  tags: [{ type: String }],
+  isPrivate: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 module.exports = mongoose.model("Blog Post", blogPostSchema);
