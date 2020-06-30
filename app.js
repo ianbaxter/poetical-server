@@ -11,6 +11,7 @@ dotenv.config();
 
 // Routes
 const blogHomeRouter = require("./routes/api/blogHome");
+const usersRouter = require("./routes/api/users");
 const authRouter = require("./routes/api/auth");
 
 // Connect to MongoDB
@@ -31,6 +32,7 @@ app.use(helmet());
 
 // Use routes
 app.use("/api/blogHome", blogHomeRouter);
+app.use("/api/users", usersRouter);
 app.use("/api/auth", authRouter);
 app.get("/api/secret", checkAuth, (req, res) =>
   res.send({ text: "Auth success!" })

@@ -25,10 +25,12 @@ const blogPostSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  collaborators: {
-    ids: [{ type: String }],
-    usernames: [{ type: String }],
-  },
+  collaborators: [
+    {
+      id: { type: String },
+      username: { type: String },
+    },
+  ],
   meta: {
     favs: {
       type: Number,
