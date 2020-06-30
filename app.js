@@ -10,7 +10,7 @@ const checkAuth = require("./routes/api/checkAuth");
 dotenv.config();
 
 // Routes
-const blogHomeRouter = require("./routes/api/blogHome");
+const homeRouter = require("./routes/api/home");
 const usersRouter = require("./routes/api/users");
 const authRouter = require("./routes/api/auth");
 
@@ -31,7 +31,7 @@ app.use(compression());
 app.use(helmet());
 
 // Use routes
-app.use("/api/blogHome", blogHomeRouter);
+app.use("/api/home", homeRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/auth", authRouter);
 app.get("/api/secret", checkAuth, (req, res) =>
