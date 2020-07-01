@@ -13,11 +13,12 @@ dotenv.config();
 const homeRouter = require("./routes/api/home");
 const usersRouter = require("./routes/api/users");
 const authRouter = require("./routes/api/auth");
+const accountRouter = require("./routes/api/account");
 
 // Connect to MongoDB
 mongoose.connect(
   process.env.DB_CONNECT,
-  { useNewUrlParser: true, useUnifiedTopology: true },
+  { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false },
   () => console.log("Connected to database")
 );
 
@@ -34,9 +35,7 @@ app.use(helmet());
 app.use("/api/home", homeRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/auth", authRouter);
-app.get("/api/secret", checkAuth, (req, res) =>
-  res.send({ text: "Auth success!" })
-);
+app.use("/api/account", checkAuth, accountRouter);
 
 // Start server
 let port = process.env.PORT;
