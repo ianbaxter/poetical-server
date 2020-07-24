@@ -4,13 +4,34 @@ const router = require("express").Router();
 const Post = require("../../model/Post");
 
 // @route GET api/home
-// @description Get all posts
+// @description Get all posts or Get all posts with matching tag
 // @access Public
 router.get("/", (req, res) => {
-  console.log("Get all posts");
-  Post.find()
-    .then((posts) => res.json(posts))
-    .catch((err) => res.status(404).json({ error: "No posts were found" }));
+  if (req.query.tag) {
+    console.log("Get posts tagged: " + req.query.tag);
+    Post.find({ tags: req.query.tag })
+      .then((posts) => res.json(posts))
+      .catch((err) =>
+        res.status(404).json({ error: "No posts were found with tag" + tag })
+      );
+  } else if (req.query.username) {
+    console.log("Get posts by: " + req.query.username);
+    Post.find({
+      $or: [
+        { username: req.query.username },
+        { "collaborators.username": req.query.username },
+      ],
+    })
+      .then((posts) => res.json(posts))
+      .catch((err) =>
+        res.status(404).json({ error: "No posts were found by " + username })
+      );
+  } else {
+    console.log("Get all posts");
+    Post.find()
+      .then((posts) => res.json(posts))
+      .catch((err) => res.status(404).json({ error: "No posts were found" }));
+  }
 });
 
 // @route GET api/home
