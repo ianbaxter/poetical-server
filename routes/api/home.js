@@ -1,7 +1,10 @@
 const router = require("express").Router();
+const mongoose = require("mongoose");
+const ObjectId = mongoose.Types.ObjectId;
 
 // Load post model
 const Post = require("../../model/Post");
+const Comment = require("../../model/Comment");
 
 // @route GET api/home
 // @description Get all posts or Get all posts with matching tag
@@ -34,16 +37,6 @@ router.get("/", (req, res) => {
   }
 });
 
-// @route GET api/home
-// @description Get a single post
-// @access Public
-router.get("/:id", (req, res) => {
-  console.log("Getting single post");
-  Post.findById(req.params.id)
-    .then((post) => res.json(post))
-    .catch((err) => res.status(404).json({ error: "No post was found" }));
-});
-
 // @route POST api/home
 // @description Add new post
 // @access Public
@@ -55,12 +48,36 @@ router.post("/", (req, res) => {
 });
 
 // @route GET api/home/:id
+// @description Get a single post or all comments for a post
+// @access Public
+router.get("/:id", (req, res) => {
+  console.log("Getting single post and comments");
+  Post.aggregate([
+    { $match: { _id: ObjectId(req.params.id) } },
+    {
+      $lookup: {
+        from: "comments",
+        localField: "_id",
+        foreignField: "parentId",
+        as: "comments",
+      },
+    },
+  ])
+    .then((post) => res.json(post[0]))
+    .catch((err) => res.status(404).json({ error: "No post was found" }));
+});
+
+// @route GET api/home/:id
 // @description Delete post
 // @access Public
 router.delete("/:id", (req, res) => {
   console.log("Deleteing post with ID: " + req.params.id);
-  Post.findByIdAndDelete(req.params.id)
-    .then((post) => res.json({ msg: "Post deleted successfully" }))
+  let deletePost = Post.findByIdAndDelete(req.params.id);
+  let deleteComments = Comment.deleteMany({
+    parentId: ObjectId(req.params.id),
+  });
+  Promise.all([deletePost, deleteComments])
+    .then(() => res.json({ msg: "Post deleted successfully" }))
     .catch((err) => res.status(404).json({ error: "No such post exists" }));
 });
 
@@ -72,6 +89,16 @@ router.put("/:id", (req, res) => {
   Post.findByIdAndUpdate(req.params.id, req.body)
     .then((post) => res.json({ msg: "Post updated successfully" }))
     .catch((err) => res.status(404).json({ error: "No such post exists" }));
+});
+
+// @route POST api/home/:id
+// @description Add new comment
+// @access Public
+router.post("/:id", (req, res) => {
+  console.log("Adding new comment to post: " + req.params.id);
+  Comment.create(req.body)
+    .then((comment) => res.json({ msg: "Comment added successfully" }))
+    .catch((err) => res.status(400).send("Unable to save data"));
 });
 
 module.exports = router;
