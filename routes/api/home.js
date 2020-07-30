@@ -85,9 +85,17 @@ router.delete("/:id", (req, res) => {
 // @description Update post
 // @access Public
 router.put("/:id", (req, res) => {
-  console.log("Updating " + req.params.id);
-  Post.findByIdAndUpdate(req.params.id, req.body)
-    .then((post) => res.json({ msg: "Post updated successfully" }))
+  Post.findById(req.params.id)
+    .then((post) => {
+      if (!post.currentUser || !req.body.currentUser) {
+        console.log("Updating " + req.params.id);
+        Post.findByIdAndUpdate(req.params.id, req.body).then((post) =>
+          res.json({ msg: "Post updated successfully" })
+        );
+      } else {
+        res.sendStatus(403);
+      }
+    })
     .catch((err) => res.status(404).json({ error: "No such post exists" }));
 });
 

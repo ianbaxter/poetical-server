@@ -43,6 +43,9 @@ const postSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  currentUser: {
+    type: String,
+  },
 });
 
 module.exports = mongoose.model("Blog Post", postSchema);
