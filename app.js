@@ -37,10 +37,6 @@ app.use("/api/users", usersRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/account", checkAuth, accountRouter);
 
-// Start server
-let port = process.env.PORT;
-if (port == null || port == "") {
-  port = 8000;
-}
-
-app.listen(port, () => console.log(`Server listening on ${port}`));
+// Start server and listen to hosting specified port or 8000 otherwise
+const PORT = process.env.PORT || 8000;
+app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
