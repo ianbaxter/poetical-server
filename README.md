@@ -1,12 +1,12 @@
 # Poetical
 
-The back-end (server) for an application for collaborating on creative prose.
+The back-end API for poetical, an application for collaborating on creative writing.
+
+Built using the MERN stack (MongoDB, Express, Node.js & React). The back-end is hosted on Google's App Engine.
 
 [Front-end (server) source code](https://github.com/ianbaxter/poetical).
 
 ## Setup
-
-You will need a MongoDB account for database functionality.
 
 Clone the project:
 
@@ -26,7 +26,9 @@ Install dependencies:
 npm install
 ```
 
-Create a .env file (just called .env) in the project directory and inside the .env file create a environemnt variable called DB_CONNECT which will be equal to your MongoDB connection string.
+I used MongoDB for the database.
+
+Create a .env file in the project directory. inside the .env file create a environemnt variable called DB_CONNECT which will be equal to your MongoDB connection string.
 
 Details on how to get your connection string and connect to a MongoDB database via driver can be found [here](https://docs.atlas.mongodb.com/driver-connection/).
 
@@ -40,4 +42,4 @@ The server will then be running on port 8000.
 
 ## Deploy
 
-I have deployed my version of this project to Heroku however you can deploy to other platforms.
+I have used Google's App Engine to host this.
